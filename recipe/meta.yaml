@@ -1,5 +1,5 @@
 {% set name = "robust-laplacian" %}
-{% set version = "1.0.0" %}
+{% set version = "1.1.0" %}
 
 package:
   name: {{ name|lower }}
@@ -7,10 +7,10 @@ package:
 
 source:
   - url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/robust_laplacian-{{ version }}.tar.gz
-    sha256: a00d7c225e40b6f9a1b9c8de0c5cb51dadd35367e3fe61b265a4643165b4e08d
+    sha256: 1db9eeb1a7aa340c3da902b125d2f58c7138feda206a72c2402dd25e702290d2
 
 build:
-  number: 2
+  number: 0
   script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
 
 requirements:
