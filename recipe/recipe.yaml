@@ -14,7 +14,12 @@ source:
 
 build:
   number: 2
-  script: python -m pip install . -vv --no-deps --no-build-isolation
+  script:
+    - python -m pip install . -vv --no-deps --no-build-isolation
+    - if: unix
+      then: rm -rf "${SP_DIR}/lib"
+    - if: win
+      then: if exist "%SP_DIR%\\lib" rmdir /s /q "%SP_DIR%\\lib"
 
 requirements:
   build:
