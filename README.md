@@ -9,6 +9,8 @@ Package license: MIT
 
 Summary: Build high-quality Laplace matrices on meshes and point clouds in Python
 
+Development: https://github.com/nmwsharp/robust-laplacians-py
+
 Current build status
 ====================
 
