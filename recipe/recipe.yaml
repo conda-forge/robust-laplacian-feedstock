@@ -1,0 +1,65 @@
+schema_version: 1
+
+context:
+  name: robust-laplacian
+  version: "1.1.0"
+
+package:
+  name: ${{ name|lower }}
+  version: ${{ version }}
+
+source:
+  url: https://pypi.org/packages/source/${{ name[0] }}/${{ name }}/robust_laplacian-${{ version }}.tar.gz
+  sha256: 1db9eeb1a7aa340c3da902b125d2f58c7138feda206a72c2402dd25e702290d2
+
+build:
+  number: 2
+  script: python -m pip install . -vv --no-deps --no-build-isolation
+
+requirements:
+  build:
+    - ${{ compiler('cxx') }}
+    - ${{ stdlib('c') }}
+    - cmake <4
+    - if: unix
+      then: make
+    - if: build_platform != target_platform
+      then:
+        - cross-python_${{ target_platform }}
+        - pip
+        - python
+        - scikit-build-core
+  host:
+    - pip
+    - python
+    - scikit-build-core
+  run:
+    - numpy
+    - python
+    - scipy
+
+tests:
+  - python:
+      imports:
+        - robust_laplacian
+  - script:
+      - pip check
+      - python run_test.py
+    files:
+      recipe:
+        - run_test.py
+    requirements:
+      run:
+        - pip
+        - python
+
+about:
+  homepage: https://github.com/nmwsharp/robust-laplacians-py
+  repository: https://github.com/nmwsharp/robust-laplacians-py
+  summary: Build high-quality Laplace matrices on meshes and point clouds in Python
+  license: MIT
+  license_file: LICENSE
+
+extra:
+  recipe-maintainers:
+    - jeongseok-meta
